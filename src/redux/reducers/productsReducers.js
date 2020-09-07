@@ -1,34 +1,24 @@
-import {SET_ALL_PRODUCTS, SET_FETCHING,} from "../actions/actions";
-
-
+import { SET_ALL_PRODUCTS, SET_FETCHING } from "../actions/actions";
 
 let initialState = {
-    products: [],
-    totalProductsCount: 0,
-    isFetching: true,
-
+  products: [],
+  isFetching: true,
 };
-
-const productsReduser = (state = initialState, type, payload) => {
-
-    switch (type) {
-        case SET_ALL_PRODUCTS:
-            console.log(type)
-            return {
-                ...state,
-                products: [...payload]
-            }
-        case SET_FETCHING:
-            console.log(type)
-            return {
-                ...state,
-                isFetching: payload
-            }
-        default:
-            return state;
-    }
+const productsReduser = (state = initialState, action) => {
+  switch (action.type) {
+    case SET_ALL_PRODUCTS:
+      return {
+        ...state,
+        products: [...action.payload],
+      };
+    case SET_FETCHING:
+      return {
+        ...state,
+        isFetching: action.payload,
+      };
+    default:
+      return state;
+  }
 };
-
-
 
 export default productsReduser;
