@@ -1,19 +1,18 @@
 import React from "react";
 import "./App.css";
-import { Route, Switch, Redirect } from "react-router-dom";
-import Products from "./view/Products";
+import { Route, Switch } from "react-router-dom";
+import {routes} from './routes'
 
-function App() {
+export const App = () => {
+    const routers = routes.map((item,i) =>{
+        return <Route path={item.path} component={item.component} exact={item.exact} key={item.key}/>
+    })
   return (
     <>
       <Switch>
-        <Route exact path="/">
-          <Redirect to="/products" /> 
-        </Route>
-        <Route path="/products" render={() => <Products />} />
+          {routers}
       </Switch>
     </>
   );
 }
 
-export default App;
