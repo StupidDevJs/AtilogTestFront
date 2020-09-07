@@ -1,7 +1,7 @@
 import React from "react";
 import "./App.css";
 import { Route, Switch, Redirect } from "react-router-dom";
-import Products from "./view/Products/Products";
+import Products from "./view/Products";
 
 function App() {
   return (

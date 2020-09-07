@@ -8,7 +8,7 @@ export const setProducts = (payload) => ({ type: SET_ALL_PRODUCTS, payload });
 export const addNewProduct = (name, price, isAvailable) => {
   return (dispatch) => {
     dispatch(setFetching(true));
-    productsAPI.addProduct(name, price, isAvailable).then((data) => {
+    productsAPI.addProduct(name, price, isAvailable).then(() => {
       dispatch(getAllProducts());
       dispatch(setFetching(false));
     });
@@ -33,20 +33,18 @@ export const findById = (id) => {
     });
   };
 };
-// UPDATE
 export const changeProductById = (id, body) => {
   return (dispatch) => {
     dispatch(setFetching(true));
-    productsAPI.editProduct(id, body).then((data) => {
+    productsAPI.editProduct(id, body).then(() => {
       dispatch(getAllProducts());
     });
   };
 };
-//DELETE
 export const deleteProduct = (id) => {
   return (dispatch) => {
     dispatch(setFetching(true));
-    productsAPI.deleteProductById(id).then((data) => {
+    productsAPI.deleteProductById(id).then(() => {
       dispatch(setFetching(false));
       dispatch(getAllProducts());
     });

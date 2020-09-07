@@ -1,14 +1,6 @@
 import React from "react";
-import { connect } from "react-redux";
-import {
-  getAllProducts,
-  deleteProduct,
-  addNewProduct,
-  findById,
-  changeProductById,
-} from "../../redux/actions/actions";
 
-class Products extends React.Component {
+ export class Products extends React.Component {
   state = {
     etalonProductsArr: [],
     temporaryId: "",
@@ -52,8 +44,8 @@ class Products extends React.Component {
   };
   addToBd = () => {
     if (
-      (this.state.temporaryName,
-      this.state.temporaryPrice,
+      (this.state.temporaryName &&
+      this.state.temporaryPrice &&
       this.state.temporaryAvailability)
     ) {
       this.props.addNewProduct(
@@ -86,7 +78,7 @@ class Products extends React.Component {
     const items = this.state.etalonProductsArr.map((item, index) => {
       const { _id, name, price, isAvailable } = item || {};
       return (
-        <div
+        <div key={_id+index}
           style={{
             fontSize: `15px`,
             border: "1px solid black",
@@ -149,17 +141,3 @@ class Products extends React.Component {
   }
 }
 
-const mStP = (state) => {
-  return {
-    products: state.products.products,
-    isFetching: state.products.isFetching,
-  };
-};
-
-export default connect(mStP, {
-  getAllProducts,
-  deleteProduct,
-  addNewProduct,
-  findById,
-  changeProductById,
-})(Products);
