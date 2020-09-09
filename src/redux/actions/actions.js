@@ -2,9 +2,9 @@ import { productsAPI } from "../../utils/api";
 
 export const SET_ALL_PRODUCTS = " SET_ALL_PRODUCTS";
 export const SET_FETCHING = " SET_FETCHING";
+
 export const setFetching = (payload) => ({ type: SET_FETCHING, payload });
 export const setProducts = (payload) => ({ type: SET_ALL_PRODUCTS, payload });
-//CREATE
 export const addNewProduct = (name, price, isAvailable) => {
   return (dispatch) => {
     dispatch(setFetching(true));
@@ -14,7 +14,6 @@ export const addNewProduct = (name, price, isAvailable) => {
     });
   };
 };
-//READ
 export const getAllProducts = () => {
   return (dispatch) => {
     dispatch(setFetching(true));
