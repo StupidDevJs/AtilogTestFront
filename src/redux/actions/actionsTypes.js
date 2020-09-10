@@ -1,0 +1,2 @@
+export const SET_ALL_PRODUCTS = " SET_ALL_PRODUCTS";
+export const SET_FETCHING = " SET_FETCHING";

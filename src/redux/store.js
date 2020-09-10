@@ -1,6 +1,7 @@
 import { applyMiddleware, combineReducers, compose, createStore } from "redux";
 import productsReduser from "./reducers/productsReducers";
 import ReduxThunk from "redux-thunk";
+
 let reducers = combineReducers({
   products: productsReduser,
 });

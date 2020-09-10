@@ -1,6 +1,6 @@
-import React from "react";
+import React, { Component } from "react";
 
- export class Products extends React.Component {
+export class Products extends Component {
   state = {
     etalonProductsArr: [],
     temporaryId: "",
@@ -10,21 +10,27 @@ import React from "react";
   };
 
   showAllProducts = () => {
-    this.props.getAllProducts();
+    const { getAllProducts } = this.props;
+    getAllProducts();
   };
+
   componentDidUpdate(prevProps, prevState, snapshot) {
+    const { products } = this.props;
     if (prevProps.products !== this.props.products) {
-      this.setState({ etalonProductsArr: this.props.products });
+      this.setState({ etalonProductsArr: products });
     }
   }
+
   changeTemporaryId = (e) => {
     this.setState({
       temporaryId: e.target.value,
     });
   };
   delFromBdById = () => {
-    if (this.state.temporaryId) {
-      this.props.deleteProduct(this.state.temporaryId);
+    const { deleteProduct } = this.props;
+    const { temporaryId } = this.state;
+    if (temporaryId) {
+      deleteProduct(temporaryId);
     }
   };
   changeName = (e) => {
@@ -43,42 +49,53 @@ import React from "react";
     });
   };
   addToBd = () => {
-    if (
-      (this.state.temporaryName &&
-      this.state.temporaryPrice &&
-      this.state.temporaryAvailability)
-    ) {
-      this.props.addNewProduct(
-        this.state.temporaryName,
-        this.state.temporaryPrice,
-        this.state.temporaryAvailability
-      );
+    const { temporaryName, temporaryPrice, temporaryAvailability } = this.state;
+    const { addNewProduct } = this.props;
+    if (temporaryName && temporaryPrice && temporaryAvailability) {
+      addNewProduct(temporaryName, temporaryPrice, temporaryAvailability);
     }
   };
   findById = () => {
-    if (this.state.temporaryId) {
-      this.props.findById(this.state.temporaryId);
+    const { temporaryId } = this.state;
+    const { findById } = this.props;
+    if (temporaryId) {
+      findById(temporaryId);
     }
   };
   editById = () => {
-    if (this.state.temporaryId) {
+    const {
+      temporaryName,
+      temporaryPrice,
+      temporaryAvailability,
+      temporaryId,
+    } = this.state;
+    const { changeProductById } = this.props;
+    if (temporaryId) {
       let reqBody = {
-        name: this.state.temporaryName,
-        price: this.state.temporaryPrice,
-        isAvailable: this.state.temporaryAvailability,
+        name: temporaryName,
+        price: temporaryPrice,
+        isAvailable: temporaryAvailability,
       };
-      this.props.changeProductById(this.state.temporaryId, reqBody);
+      changeProductById(temporaryId, reqBody);
     }
   };
+
   componentDidMount() {
     this.showAllProducts();
   }
 
   render() {
+    const {
+      idToDelete,
+      temporaryName,
+      temporaryPrice,
+      temporaryAvailability,
+    } = this.state;
     const items = this.state.etalonProductsArr.map((item, index) => {
       const { _id, name, price, isAvailable } = item || {};
       return (
-        <div key={_id+index}
+        <div
+          key={_id + index}
           style={{
             fontSize: `15px`,
             border: "1px solid black",
@@ -98,11 +115,7 @@ import React from "react";
       <div>
         <div>
           <p> enter id to do something</p>
-          <input
-            onChange={this.changeTemporaryId}
-            value={this.state.idToDelete}
-          />
-          <button onClick={this.showId}>watchId</button>
+          <input onChange={this.changeTemporaryId} value={idToDelete} />
         </div>
         <div>
           <button onClick={this.showAllProducts}>Get all</button>
@@ -117,19 +130,19 @@ import React from "react";
           <button onClick={this.addToBd}>add</button>
           <input
             type="text"
-            value={this.state.temporaryName}
+            value={temporaryName}
             placeholder={`enter product name`}
             onChange={this.changeName}
           />
           <input
             type="text"
-            value={this.state.temporaryPrice}
+            value={temporaryPrice}
             placeholder={`enter product's price`}
             onChange={this.changePrice}
           />
           <input
             type="text"
-            value={this.state.temporaryAvailability}
+            value={temporaryAvailability}
             placeholder={`enter product's availability`}
             onChange={this.changeAvailability}
           />
@@ -140,4 +153,3 @@ import React from "react";
     );
   }
 }
-

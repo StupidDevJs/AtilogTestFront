@@ -1,7 +1,5 @@
+import { SET_ALL_PRODUCTS, SET_FETCHING } from "./actionsTypes";
 import { productsAPI } from "../../utils/api";
-
-export const SET_ALL_PRODUCTS = " SET_ALL_PRODUCTS";
-export const SET_FETCHING = " SET_FETCHING";
 
 export const setFetching = (payload) => ({ type: SET_FETCHING, payload });
 export const setProducts = (payload) => ({ type: SET_ALL_PRODUCTS, payload });
