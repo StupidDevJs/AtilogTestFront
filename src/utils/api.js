@@ -1,40 +1,38 @@
 import axios from "axios";
+import { setFetching } from "../redux/actions/actions";
+import store from "../redux/store";
+const baseUrl = process.env.REACT_APP_API_URL;
 
-const apiUrl = process.env.REACT_APP_API_URL;
-const config = axios.create({
-  baseURL: apiUrl,
-  withCredentials: true,
+const axiosInstance = axios.create({
+  baseURL: baseUrl,
 });
 const apiUrls = {
   products: `/products/`,
 };
+axiosInstance.interceptors.request.use(async (response) => {
+  store.dispatch(setFetching(false));
+  return response;
+});
+
 export const productsAPI = {
   getAllProducts() {
-    return config.get(apiUrls.products).then((response) => response.data);
+    return axiosInstance.get(apiUrls.products);
   },
   getProductByID(id) {
-    return config
-      .get(`${apiUrls.products}${id}`)
-      .then((response) => response.data);
+    return axiosInstance.get(`${apiUrls.products}${id}`);
   },
   addProduct(name, price, isAvailable) {
     console.log(name, price, isAvailable);
-    return config
-      .post(`${apiUrls.products}`, {
-        name,
-        price,
-        isAvailable,
-      })
-      .then(() => console.log("done"));
+    return axiosInstance.post(`${apiUrls.products}`, {
+      name,
+      price,
+      isAvailable,
+    });
   },
   editProduct(id, data) {
-    return config
-      .put(`${apiUrls.products}${id}`, data)
-      .then((response) => response.data);
+    return axiosInstance.put(`${apiUrls.products}${id}`, data);
   },
   deleteProductById(id) {
-    return config
-      .delete(`${apiUrls.products}${id}`)
-      .then((response) => response.data);
+    return axiosInstance.delete(`${apiUrls.products}${id}`);
   },
 };
