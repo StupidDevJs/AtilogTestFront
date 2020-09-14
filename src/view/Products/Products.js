@@ -14,16 +14,16 @@ export class Products extends Component {
     getAllProducts();
   };
 
-  componentDidUpdate(prevProps, prevState, snapshot) {
+  componentDidUpdate(prevProps) {
     const { products } = this.props;
     if (prevProps.products !== this.props.products) {
       this.setState({ etalonProductsArr: products });
     }
   }
 
-  changeTemporaryId = (e) => {
+  changeTemporaryId = (value) => {
     this.setState({
-      temporaryId: e.target.value,
+      temporaryId: value,
     });
   };
   delFromBdById = () => {
@@ -33,19 +33,19 @@ export class Products extends Component {
       deleteProduct(temporaryId);
     }
   };
-  changeName = (e) => {
+  changeName = (value) => {
     this.setState({
-      temporaryName: e.target.value,
+      temporaryName: value,
     });
   };
-  changeAvailability = (e) => {
+  changeAvailability = (value) => {
     this.setState({
-      temporaryAvailability: e.target.value,
+      temporaryAvailability: value,
     });
   };
-  changePrice = (e) => {
+  changePrice = (value) => {
     this.setState({
-      temporaryPrice: e.target.value,
+      temporaryPrice: value,
     });
   };
   addToBd = () => {
@@ -91,11 +91,11 @@ export class Products extends Component {
       temporaryPrice,
       temporaryAvailability,
     } = this.state;
-    const items = this.state.etalonProductsArr.map((item, index) => {
+    const items = this.state.etalonProductsArr.map((item) => {
       const { _id, name, price, isAvailable } = item || {};
       return (
         <div
-          key={_id + index}
+          key={_id}
           style={{
             fontSize: `15px`,
             border: "1px solid black",
@@ -115,7 +115,10 @@ export class Products extends Component {
       <div>
         <div>
           <p> enter id to do something</p>
-          <input onChange={this.changeTemporaryId} value={idToDelete} />
+          <input
+            onChange={(e) => this.changeTemporaryId(e.target.value)}
+            value={idToDelete}
+          />
         </div>
         <div>
           <button onClick={this.showAllProducts}>Get all</button>
@@ -132,19 +135,19 @@ export class Products extends Component {
             type="text"
             value={temporaryName}
             placeholder={`enter product name`}
-            onChange={this.changeName}
+            onChange={(e) => this.changeName(e.target.value)}
           />
           <input
             type="text"
             value={temporaryPrice}
             placeholder={`enter product's price`}
-            onChange={this.changePrice}
+            onChange={(e) => this.changePrice(e.target.value)}
           />
           <input
             type="text"
             value={temporaryAvailability}
             placeholder={`enter product's availability`}
-            onChange={this.changeAvailability}
+            onChange={(e) => this.changeAvailability(e.target.value)}
           />
         </div>
         <button onClick={this.editById}>EditById</button>
