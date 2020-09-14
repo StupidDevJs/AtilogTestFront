@@ -22,7 +22,6 @@ export const productsAPI = {
     return axiosInstance.get(`${apiUrls.products}${id}`);
   },
   addProduct(name, price, isAvailable) {
-    console.log(name, price, isAvailable);
     return axiosInstance.post(`${apiUrls.products}`, {
       name,
       price,

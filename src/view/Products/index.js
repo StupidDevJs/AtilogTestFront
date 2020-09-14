@@ -9,9 +9,10 @@ import {
 import { Products } from "./Products";
 
 const mStP = (state) => {
+  const { products, isFetching } = state.products;
   return {
-    products: state.products.products,
-    isFetching: state.products.isFetching,
+    products,
+    isFetching,
   };
 };
 export default connect(mStP, {
