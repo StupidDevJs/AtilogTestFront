@@ -1,7 +1,7 @@
 import React, {Component} from "react";
 import {ProductCard} from "../../components/ProductCard";
-import {Button} from "@material-ui/core";
 import {productsAPI} from "../../utils/api";
+import './Products.scss'
 
 export class Products extends Component {
     state = {
@@ -11,16 +11,28 @@ export class Products extends Component {
         const {data} = await productsAPI.getAllProducts();
         this.setState({products: data})
     }
+
+    deleteItem = async (id) => {
+        await  productsAPI.deleteProductById(id);
+        const {data} = await productsAPI.getAllProducts();
+        this.setState({products: data})
+    }
+
+    componentDidMount() {
+        this.getAll();
+    }
+
     render() {
         const {products} = this.state;
-        const cards = products.map(item=>{
-            return <ProductCard product={item} key={item._id}/>
+        const cards = products.map(item => {
+            return <ProductCard product={item} key={item._id} deleteItem={this.deleteItem} />
         })
         return (
-            <>
-                {cards}
-                <Button variant={"contained"} color={"primary"} onClick={this.getAll}>Get Products</Button>
-            </>
+            <div style={{"margin": '100px 0 0 0'}}>
+                <div className='products_container'>
+                    {cards}
+                </div>
+            </div>
         )
     }
 }

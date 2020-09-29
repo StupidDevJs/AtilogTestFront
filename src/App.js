@@ -1,11 +1,15 @@
 import React from "react";
 import { Route, Switch } from "react-router-dom";
 import { routes } from "./routes";
-import "./App.css";
+import "./reset.css";
+import {Navbar} from "./components/Navbar";
 
 export const App = () => {
   return (
     <>
+        <div>
+            <Navbar />
+        </div>
       <Switch>
         {routes.map((item) => {
           return (
