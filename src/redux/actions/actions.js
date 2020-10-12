@@ -1,6 +1,7 @@
-// import {SET_FETCHING} from "./actionsTypes";
-//
-// export const setFetching = (payload) => ({ type: SET_FETCHING, payload });
+import {SET_FETCHING,SIGN_UP} from "./actionsTypes";
+export const setFetching = (payload) => ({ type: SET_FETCHING, payload });
+export const signUpRequest = (payload) => ({type: SIGN_UP, payload})
+
 //
 //
 // export const signUpUser = async () => {

@@ -1,13 +1,14 @@
 import React, {Component} from "react";
 import {RegisterForm} from "../../components/RegisterForm";
 import {connect} from "react-redux";
-import {signUp} from "../../redux/saga/sagas";
+import {signUpRequest} from "../../redux/actions/actions";
 
 class Register extends Component {
 
     render() {
+
         return (
-            <RegisterForm/>
+            <RegisterForm submit={this.props.signUpRequest}/>
         )
     }
 }
@@ -19,4 +20,4 @@ const mStP = (state) => {
         currentUser,
     };
 }
-export default connect(mStP, {signUp})(Register)
+export default connect(mStP, {signUpRequest})(Register)

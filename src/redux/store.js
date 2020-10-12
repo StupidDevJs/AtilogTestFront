@@ -1,25 +1,7 @@
-// import { applyMiddleware, combineReducers, compose, createStore } from "redux";
-// import ReduxSaga from "redux-saga";
-// import auth from "./reducers/auth";
-// import {helloSaga} from "./saga/sagas";
-//
-// let reducers = combineReducers({
-//     auth: auth,
-// });
-// const sagaMiddleware = ReduxSaga()
-// const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
-// const store = createStore(
-//     reducers,
-//     /* preloadedState, */ composeEnhancers(applyMiddleware(sagaMiddleware))
-// );
-// sagaMiddleware.run(helloSaga)
-
-// export default store;
 import auth from "./reducers/auth"
 import {createStore, applyMiddleware, compose, combineReducers} from "redux"
 import createSagaMiddleware from 'redux-saga'
-// import ру from './saga'
-import {signUp} from "./saga/sagas";
+import sagas from "./saga";
 
 export const sagaMiddleware = createSagaMiddleware()
 let reducers = combineReducers({
@@ -36,4 +18,4 @@ export const store = createStore(
 )
 
 
-sagaMiddleware.run(signUp)
+sagaMiddleware.run(sagas);

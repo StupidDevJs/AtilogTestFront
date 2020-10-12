@@ -7,8 +7,8 @@ import {ProductEditForm} from "./MainForm";
 import * as Yup from "yup";
 
 const RegisterSchema = Yup.object().shape({
-    name: Yup.string()
-        .min(2, 'Too Short!')
+    password: Yup.string()
+        .min(8, 'Too Short!')
         .max(50, 'Too Long!')
         .required('Required'),
     email: Yup.string()
@@ -17,18 +17,16 @@ const RegisterSchema = Yup.object().shape({
         .email('Email is invalid')
         .required('Email is required')
 });
-export const RegisterForm = () => {
 
-    const formikAction = async (values, setFieldError, setSubmitting) => {
+export const RegisterForm = ({ submit }) => {
+
+    const formikAction = async (values, setFieldError,setSubmitting) => {
         try {
             setSubmitting(true)
-
-        } catch(err) {
-            const { message, data } = err.response.data;
-
-            if (message.includes('duplicate error')) {
-                data.forEach(field => setFieldError(field, 'Duplicated field'));
-            }
+            await submit(values);
+            setSubmitting(false)
+        } catch (err) {
+            console.log(err)
         }
     }
     return (
@@ -39,7 +37,10 @@ export const RegisterForm = () => {
 const Register = ({initialValues, handleSubmit}) => {
     return (
         <Formik enableReinitialize
-                initialValues={initialValues}
+                initialValues={{
+                    password: '',
+                    email: '',
+                }}
                 onSubmit={(values, {setSubmitting, setFieldError}) => {
                     handleSubmit(values, setFieldError, setSubmitting);
                 }}
@@ -48,24 +49,16 @@ const Register = ({initialValues, handleSubmit}) => {
             {({errors, touched}) => (
                 <Form>
                     <div className="mainForm">
+
+                        <div>
+                            <Field component={TextField} name="email" label="Enter you email"/>
+                        </div>
                         <div className="mainForm_textField">
-                            <Field component={TextField} name="name" label="Name"/>
-                        </div>
-                        <div>
-                            <Field component={TextField} name="price" label="Price"/>
-                        </div>
-                        <div>
-                            <Field
-                                component={TextField}
-                                multiline
-                                name="description"
-                                variant="outlined"
-                                label="description"
-                            />
+                            <Field component={TextField} name="password" label="Password"
+                                   InputProps={{type: 'password'}}/>
                         </div>
                     </div>
                     <div>
-
                         <Button
                             type={"submit"}
                             variant="contained"
