@@ -1,8 +1,8 @@
 import React, {useEffect, useState} from 'react';
 import {Formik, Form, Field} from 'formik';
 import {withRouter} from "react-router";
-import {productsAPI} from "../utils/api";
-import {Button, Typography} from "@material-ui/core";
+import {productsAPI} from "../../utils/api";
+import {Box, Button, Typography} from "@material-ui/core";
 import './MainForm.scss';
 import {TextField, Checkbox} from 'formik-material-ui';
 import * as Yup from 'yup';
@@ -77,8 +77,8 @@ const MyForm = ({initialValues, handleSubmit}) => {
                 validationSchema={ProductSchema}
         >
             {({errors, touched}) => (
-                <Form>
-                    <div className="mainForm">
+                <Form className="mainForm">
+                    <div >
                         <div className="mainForm_textField">
                             <Field component={TextField} name="name" label="Name"/>
                         </div>
@@ -97,19 +97,21 @@ const MyForm = ({initialValues, handleSubmit}) => {
                     </div>
                     <div>
 
-                        <Button
-                            type={"submit"}
-                            variant="contained"
-                            color="primary"
-                        >
-                            Send
-                        </Button>
-                        <Field
-                            type="checkbox"
-                            component={Checkbox}
-                            name="isAvailable"
-                            label="isAvailable"
-                        />
+                        <div className="mainForm_button">
+                            <Button
+                                type={"submit"}
+                                variant="contained"
+                                color="primary"
+                            >
+                                Send
+                            </Button>
+                            <Field
+                                type="checkbox"
+                                component={Checkbox}
+                                name="isAvailable"
+                                label="isAvailable"
+                            />
+                        </div>
                         <Typography component="span"> Is Available?</Typography>
                     </div>
                 </Form>

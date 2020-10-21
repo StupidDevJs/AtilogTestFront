@@ -1,9 +1,10 @@
 import {SET_USER, SET_FETCHING} from "../actions/actionsTypes";
 
 let initialState = {
+    isAuth: false,
     currentUser: {
         name: '',
-        lastname: 'Email'
+        lastname: ''
     },
     isFetching: false,
 };

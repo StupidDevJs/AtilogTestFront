@@ -1,27 +1,35 @@
 import React from "react";
-import { Route, Switch } from "react-router-dom";
-import { routes } from "./routes";
+import {Redirect, Route, Switch} from "react-router-dom";
+import {routes} from "./routes";
 import "./reset.css";
-import {Navbar} from "./components/Navbar";
+import {Navbar} from "./components/Nav/Navbar";
+import { connect } from 'react-redux'
 
-export const App = () => {
-  return (
-    <>
-        <div>
-            <Navbar />
-        </div>
-      <Switch>
-        {routes.map((item) => {
-          return (
-            <Route
-              path={item.path}
-              component={item.component}
-              exact={item.exact}
-              key={item.key}
-            />
-          );
-        })}
-      </Switch>
-    </>
-  );
+ const App = ({isAuth}) => {
+     console.log(isAuth)
+    return (
+        <>
+            <div>
+                <Navbar/>
+            </div>
+            <Switch>
+                {routes.map((item) => {
+                    return (
+                        <Route
+                            path={item.path}
+                            component={item.component}
+                            exact={item.exact}
+                            key={item.key}
+                        >
+                            {item.isPrivate && !isAuth ? <Redirect to='/logIn'/> : null}
+                        </Route>
+                    );
+                })}
+            </Switch>
+        </>
+    );
 };
+ const mStP = state => ({
+         isAuth: state.auth.isAuth
+ })
+ export default connect(mStP,null)(App)

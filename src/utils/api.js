@@ -10,58 +10,52 @@ const apiUrls = {
     signUp: `/sign-up`,
     signIn: `/sign-in`,
 };
-// axiosInstance.interceptors.request.use(async (response) => {
-//     console.log(response)
-//     store.dispatch(setFetching());
-//         const token = localStorage.getItem('token');
-//         if (token) {
-//             const isExpire = isExpireToken(token);
-//             let requestWent = false;
-//             if (isExpire && requestWent) {
-//                 requestWent = true;
-//                 const newToken = await getRefreshToken();
-//                 localStorage.setItem('token', newToken);
-//                 config.headers.Authorization = `Bearer ${newToken}`;
-//                 requestWent = false;
-//                 return config;
-//             }
-//             config.headers.Authorization = `Bearer ${token}`;
+
+
+axiosInstance.interceptors.request.use(async (config) => {
+    const token = localStorage.getItem('token');
+    if (token) {
+        config.headers.Authorization = `Bearer ${token}`;
+        return config;
+    }
+    return config;
+});
+
+
+// axiosInstance.interceptors.request.use(async (config: any) => {
+//     //@ts-ignore
+//     store.dispatch(loadingOn());
+//     const token = localStorage.getItem('token');
+//
+//     if (token) {
+//         const isExpire = isExpireToken(token);
+//         let requestWent = false;
+//
+//         if (isExpire && requestWent) {
+//             requestWent = true;
+//             const newToken = await getRefreshToken();
+//             localStorage.setItem('token', newToken);
+//             config.headers.Authorization = `Bearer ${newToken}`;
+//             requestWent = false;
 //             return config;
 //         }
+//
+//         config.headers.Authorization = `Bearer ${token}`;
 //         return config;
-//     });
+//     }
+//
+//     return config;
+// });
 
-    axiosInstance.interceptors.response.use(
-        (response) => {
-            store.dispatch(setFetching());
-            return response;
-        },
-        (reject) => {
-            if (reject.response && reject.response.status === 401) {
-                localStorage.removeItem('token');
-                localStorage.removeItem('refreshToken');
-            }
+axiosInstance.interceptors.response.use(
+    (response) => {
+        // store.dispatch(setFetching(false));
 
-            const data = reject.response.data;
-
-            if (reject.response.status !== 401) {
-                if (data && data.field_errors) {
-                    data.field_errors.forEach((error: any) => handleToast('error', error.message));
-                } else if (data && data.errors) {
-                    data.errors.forEach((error: any) => handleToast('error', error.message));
-                } else {
-                    handleToast('error', 'Something went wrong');
-                }
-            }
-
-            store.dispatch(loadingOff());
-
-            return reject;
-        }
-    );
-
-
-});
+        return response;
+    },
+    (reject) => {
+        return reject;
+    });
 
 export const productsAPI = {
     getAllProducts() {
@@ -81,17 +75,19 @@ export const productsAPI = {
     editProduct(id, data) {
         return axiosInstance.put(`${apiUrls.products}${id}`, data);
     },
-    register({name,email}) {
-        return axiosInstance.post(`${apiUrls.register}`, {name,email});
-    },
     deleteProductById(id) {
         return axiosInstance.delete(`${apiUrls.products}${id}`);
     },
 };
 export const userAPI = {
-    signUp({email,password}) {
-        return axiosInstance.post(`${apiUrls.signUp}`,{
-            email,password
+    signUp({email, password}) {
+        return axiosInstance.post(`${apiUrls.signUp}`, {
+            email, password
         })
-}
+    },
+    signIn({email, password}) {
+        return axiosInstance.post(`${apiUrls.signUp}`, {
+            email, password
+        })
+    }
 };

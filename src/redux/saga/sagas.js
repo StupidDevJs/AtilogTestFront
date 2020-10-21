@@ -1,15 +1,15 @@
-import {call, put, takeLatest} from 'redux-saga/effects'
+import {call, takeLatest, put} from 'redux-saga/effects'
 import {userAPI} from "../../utils/api";
-import {setFetching} from "../actions/actions";
 import {SIGN_UP} from "../actions/actionsTypes";
 
 function* signUp(userData) {
-
     if (userData) {
+        console.log('i am saga')
         const {payload} = userData;
-        const data = yield call(userAPI.signUp, payload);
-        // yield put(setFetching(true));
-        console.log(data)
+        // const response = yield userAPI.signUp(payload);
+        const {data} = yield call(userAPI.signUp, payload);
+        yield put(doAuth())
+        console.log(data);
     }
 }
 

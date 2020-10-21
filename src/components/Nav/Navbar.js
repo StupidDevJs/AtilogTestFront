@@ -76,7 +76,8 @@ export const  Navbar = () => {
     const navItems = [
         {name: 'Home',path: '/'},
         {name: 'Add product',path: '/editProduct'},
-        {name: 'Sign Up',path: '/register'},
+        {name: 'Sign Up',path: '/signUp'},
+        {name: 'Sign In',path: '/signIn'},
     ]
     const handleDrawerClose = () => {
         setOpen(false);
@@ -115,8 +116,8 @@ export const  Navbar = () => {
                     paper: classes.drawerPaper,
                 }}
             >
-                <div className={classes.drawerHeader}>
-                    <IconButton onClick={handleDrawerClose}>
+                <div className={classes.drawerHeader} onClick={handleDrawerClose}>
+                    <IconButton >
                         {theme.direction === 'ltr' ? <ChevronLeftIcon /> : <ChevronRightIcon />}
                     </IconButton>
                 </div>

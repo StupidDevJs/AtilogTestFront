@@ -3,7 +3,7 @@ import {Field, Form, Formik} from "formik";
 import {Checkbox, TextField} from "formik-material-ui";
 import {Button, Typography} from "@material-ui/core";
 import {withRouter} from "react-router";
-import {ProductEditForm} from "./MainForm";
+import {ProductEditForm} from "./MainForm/MainForm";
 import * as Yup from "yup";
 
 const RegisterSchema = Yup.object().shape({
@@ -18,9 +18,9 @@ const RegisterSchema = Yup.object().shape({
         .required('Email is required')
 });
 
-export const RegisterForm = ({ submit }) => {
+export const RegisterForm = ({submit}) => {
 
-    const formikAction = async (values, setFieldError,setSubmitting) => {
+    const formikAction = async (values, setFieldError, setSubmitting) => {
         try {
             setSubmitting(true)
             await submit(values);
@@ -58,7 +58,7 @@ const Register = ({initialValues, handleSubmit}) => {
                                    InputProps={{type: 'password'}}/>
                         </div>
                     </div>
-                    <div>
+                    <div className='mainForm-button'>
                         <Button
                             type={"submit"}
                             variant="contained"
@@ -66,18 +66,9 @@ const Register = ({initialValues, handleSubmit}) => {
                         >
                             Send
                         </Button>
-                        <Field
-                            type="checkbox"
-                            component={Checkbox}
-                            name="isAvailable"
-                            label="isAvailable"
-                        />
-                        <Typography component="span"> Is Available?</Typography>
                     </div>
                 </Form>
             )}
         </Formik>
     )
 }
-
-export const ProductForm = withRouter(ProductEditForm)
