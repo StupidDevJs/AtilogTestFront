@@ -1,4 +1,4 @@
-import {SET_USER, SET_FETCHING} from "../actions/actionsTypes";
+import {SET_USER, SET_FETCHING, SIGN_UP} from "../actions/actionsTypes";
 
 let initialState = {
     isAuth: false,
@@ -9,11 +9,12 @@ let initialState = {
     isFetching: false,
 };
 const auth = (state = initialState, {type, payload}) => {
+    console.log(payload)
     switch (type) {
-        case SET_USER:
+        case SIGN_UP:
             return {
                 ...state,
-                name: payload
+                ...payload
             };
         case SET_FETCHING:
             return {

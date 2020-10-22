@@ -3,10 +3,10 @@ import {Redirect, Route, Switch} from "react-router-dom";
 import {routes} from "./routes";
 import "./reset.css";
 import {Navbar} from "./components/Nav/Navbar";
-import { connect } from 'react-redux'
+import {connect} from 'react-redux'
 
- const App = ({isAuth}) => {
-     console.log(isAuth)
+const App = ({isAuth}) => {
+    console.log(isAuth)
     return (
         <>
             <div>
@@ -21,7 +21,7 @@ import { connect } from 'react-redux'
                             exact={item.exact}
                             key={item.key}
                         >
-                            {item.isPrivate && !isAuth ? <Redirect to='/logIn'/> : null}
+                            {item.isPrivate && !isAuth ? <Redirect to='/signUp'/> : null}
                         </Route>
                     );
                 })}
@@ -29,7 +29,7 @@ import { connect } from 'react-redux'
         </>
     );
 };
- const mStP = state => ({
-         isAuth: state.auth.isAuth
- })
- export default connect(mStP,null)(App)
+const mStP = state => ({
+    isAuth: state.auth.isAuth
+})
+export default connect(mStP, null)(App)

@@ -8,10 +8,10 @@ export class Products extends Component {
         products: []
     }
     getAll = async () => {
-        // const {data} = await productsAPI.getAllProducts()
-        // if (data) {
-        //     this.setState({products: data})
-        // }
+        const {data} = await productsAPI.getAllProducts()
+        if (data) {
+            this.setState({products: data})
+        }
     }
 
     deleteItem = async (id) => {
