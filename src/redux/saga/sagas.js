@@ -1,16 +1,22 @@
 import {call, takeLatest, put} from 'redux-saga/effects'
 import {userAPI} from "../../utils/api";
-import {SIGN_UP} from "../actions/actionsTypes";
-import {signUpRequest} from "../actions/actions";
+import {signInRequest} from "../actions/actions";
+import { SIGN_IN } from '../actions/actionsTypes';
 
-function* signUp(userData) {
+function* signIn(userData) {
+   try {
     if (userData) {
         const {payload} = userData;
-        const {data} = yield call(userAPI.signUp, payload);
-        yield put(signUpRequest,data);
+        const data = yield call(userAPI.signIn, payload);
+        console.log(data);
+        console.log(payload);
+        yield put(signInRequest,data);
     }
+   } catch(err){
+       console.log(err);
+   }
 }
 
 export default function* authSaga() {
-    yield takeLatest(SIGN_UP, signUp);
+    yield takeLatest(SIGN_IN, signIn);
 }
