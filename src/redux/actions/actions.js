@@ -1,20 +1,10 @@
-import {SET_FETCHING, SIGN_IN, SIGN_UP} from "./actionsTypes";
-export const setFetching = (payload) => ({ type: SET_FETCHING, payload });
-export const signUpRequest = (payload) => ({type: SIGN_UP, payload})
-export const signInRequest = (payload) => ({type: SIGN_IN, payload})
+import {AUTH_REQUEST, AUTH_SUCCESS} from "./actionsTypes";
 
-
-
-
-
-// export const signUpUser = async () => {
-//         try {
-//             dispatch(setFetching(true));
-//             const resp = await user.getAllProducts();
-//             if (resp.status >= 200 && resp.status < 300) {
-//                 dispatch(setProducts(resp.data));
-//             }
-//         } catch (err) {
-//             throw new Error(err);
-//     };
-// };
+export const authorize = (payload) => ({
+    type: AUTH_REQUEST,
+    payload
+});
+export const authSucess = (payload) => ({
+    type: AUTH_SUCCESS,
+    payload
+});

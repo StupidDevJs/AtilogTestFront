@@ -1,3 +1,3 @@
-export const SIGN_UP = "SIGN_UP";
-export const SET_FETCHING = "SET_FETCHING";
-export const SIGN_IN = "SIGN_IN";
+export const AUTH_SUCCESS = "AUTH_SUCCESS";
+export const AUTH_FAILURE = "AUTH_FAILURE";
+export const AUTH_REQUEST  = "AUTH_REQUEST";

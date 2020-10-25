@@ -86,7 +86,7 @@ export const userAPI = {
         })
     },
     signIn({email, password}) {
-        return axiosInstance.post(`${apiUrls.signUp}`, {
+        return axiosInstance.post(`${apiUrls.signIn}`, {
             email, password
         })
     }

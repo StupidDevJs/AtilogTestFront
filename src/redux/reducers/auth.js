@@ -1,21 +1,16 @@
-import {SET_FETCHING, SIGN_IN} from "../actions/actionsTypes";
+import {PRODUCTS_REQUEST_FAILED, SIGN_IN} from "../actions/actionsTypes";
 
 let initialState = {
     isAuth: false,
     currentUser: {
         name: '',
-        lastname: ''
     },
-    isFetching: false,
+    err: false
 };
 const auth = (state = initialState, {type, payload}) => {
+    console.log(type, payload)
     switch (type) {
-        case SIGN_IN:
-            return {
-                ...state,
-                currentUser: {...payload}
-            };
-        case SET_FETCHING:
+        case PRODUCTS_REQUEST_FAILED:
             return {
                 ...state,
                 isFetching: payload,

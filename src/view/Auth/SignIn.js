@@ -1,22 +1,21 @@
-import React, { Component } from "react";
-import { RegisterForm } from "../../components/RegisterForm";
-import { connect } from "react-redux";
-import { signInRequest } from "../../redux/actions/actions";
+import React, {Component} from "react";
+import {RegisterForm} from "../../components/RegisterForm";
+import {connect} from "react-redux";
+import {authorize} from "../../redux/actions/actions";
 
 class SignIn extends Component {
 
     render() {
         return (
-            <RegisterForm submit={this.props.signInRequest} title={'Sign In'} />
+            <RegisterForm submit={this.props.authorize} title={'Sign In'}/>
         )
     }
 }
 
 const mStP = (state) => {
-    const { currentUser, isFetching } = state.auth;
+    const {currentUser} = state.auth;
     return {
-        isFetching,
         currentUser,
     };
 }
-export default connect(mStP, { signInRequest })(SignIn)
+export default connect(mStP, {authorize})(SignIn)
