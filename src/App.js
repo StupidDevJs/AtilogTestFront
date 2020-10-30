@@ -6,7 +6,6 @@ import {Navbar} from "./components/Nav/Navbar";
 import {connect} from 'react-redux'
 
 const App = ({isAuth}) => {
-    console.log(isAuth)
     return (
         <>
             <div>

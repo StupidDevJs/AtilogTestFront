@@ -54,11 +54,11 @@ export const ProductEditForm = (props) => {
             }
         }
     }
-    useEffect(() => {
-        if (id) {
-            productsAPI.getProductByID(id).then(({ data }) => setProduct(data))
-        }
-    }, [product]);
+    // useEffect(() => {
+    //     if (id) {
+    //         productsAPI.getProductByID(id).then(({ data }) => setProduct(data))
+    //     }
+    // }, [product]);
 
     return (
         <div className="mainForm">
@@ -78,7 +78,7 @@ const MyForm = ({ initialValues, handleSubmit }) => {
         >
             {({ errors, touched }) => (
                 <Form className="mainForm">
-                    <div >
+                    <div>
                         <div className="mainForm_textField">
                             <Field component={TextField} name="name" label="Name" />
                         </div>

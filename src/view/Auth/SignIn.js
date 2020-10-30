@@ -4,18 +4,17 @@ import {connect} from "react-redux";
 import {authorize} from "../../redux/actions/actions";
 
 class SignIn extends Component {
-
     render() {
         return (
-            <RegisterForm submit={this.props.authorize} title={'Sign In'}/>
+            <RegisterForm err={this.props.err} submit={this.props.authorize} title={'Sign In'}/>
         )
     }
 }
 
 const mStP = (state) => {
-    const {currentUser} = state.auth;
+    const {err} = state.auth;
     return {
-        currentUser,
+        err,
     };
 }
 export default connect(mStP, {authorize})(SignIn)

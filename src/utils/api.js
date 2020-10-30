@@ -1,5 +1,4 @@
 import axios from "axios";
-import {setFetching} from "../redux/actions/actions";
 
 const baseUrl = `http://localhost:8000` // TODO: dotenv
 const axiosInstance = axios.create({
@@ -15,38 +14,11 @@ const apiUrls = {
 axiosInstance.interceptors.request.use(async (config) => {
     const token = localStorage.getItem('token');
     if (token) {
-        config.headers.Authorization = `Bearer ${token}`;
+        config.headers.Authorizations = `Bearer ${token}`;
         return config;
     }
     return config;
 });
-
-
-// axiosInstance.interceptors.request.use(async (config: any) => {
-//     //@ts-ignore
-//     store.dispatch(loadingOn());
-//     const token = localStorage.getItem('token');
-//
-//     if (token) {
-//         const isExpire = isExpireToken(token);
-//         let requestWent = false;
-//
-//         if (isExpire && requestWent) {
-//             requestWent = true;
-//             const newToken = await getRefreshToken();
-//             localStorage.setItem('token', newToken);
-//             config.headers.Authorization = `Bearer ${newToken}`;
-//             requestWent = false;
-//             return config;
-//         }
-//
-//         config.headers.Authorization = `Bearer ${token}`;
-//         return config;
-//     }
-//
-//     return config;
-// });
-
 axiosInstance.interceptors.response.use(
     (response) => {
         // store.dispatch(setFetching(false));
